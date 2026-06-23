@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>品牌行銷 — 從抽象概念到商業轉換</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Noto+Sans+TC:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink:    #0f1117;
+  --paper:  #f5f4f0;
+  --warm:   #ede9e1;
+  --rule:   #d6d1c8;
+  --dim:    #8a8378;
+  --blue:   #1a4cff;
+  --blue-t: rgba(26,76,255,.08);
+  --orange: #e05c1a;
+  --orange-t: rgba(224,92,26,.08);
+  --green:  #0d7a4e;
+  --green-t:rgba(13,122,78,.08);
+  --purple: #6b3fa0;
+  --purple-t:rgba(107,63,160,.08);
+  --display:'DM Sans', sans-serif;
+  --body:   'Noto Sans TC', sans-serif;
+  --mono:   'DM Mono', monospace;
+  --max: 780px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+html{scroll-behavior:smooth;font-size:16px;}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  line-height:1.8;
+}
+
+/* ── Progress bar ── */
+#progress-bar{
+  position:fixed;top:0;left:0;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+  z-index:200;
+  transition:width .1s linear;
+}
+
+/* ── Sticky nav ── */
+#toc-nav{
+  position:fixed;top:0;left:0;right:0;
+  background:rgba(245,244,240,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  height:52px;
+}
+
+.nav-logo{
+  font-family:var(--display);
+  font-size:13px;
+  font-weight:700;
+  color:var(--ink);
+  letter-spacing:.02em;
+}
+
+.nav-chapters{
+  display:flex;
+  gap:0;
+  list-style:none;
+}
+
+.nav-chapters li a{
+  display:block;
+  padding:0 12px;
+  height:52px;
+  line-height:52px;
+  font-family:var(--display);
+  font-size:12px;
+  font-weight:500;
+  color:var(--dim);
+  text-decoration:none;
+  border-bottom:2px solid transparent;
+  transition:color .2s, border-color .2s;
+  white-space:nowrap;
+}
+
+.nav-chapters li a:hover,
+.nav-chapters li a.active{
+  color:var(--ink);
+  border-bottom-color:var(--blue);
+}
+
+@media(max-width:700px){
+  .nav-chapters{display:none;}
+}
+
+/* ── Layout ── */
+main{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:120px 24px 80px;
+}
+
+/* ── Hero ── */
+.hero{
+  padding:60px 0 80px;
+  border-bottom:1px solid var(--rule);
+  margin-bottom:80px;
+}
+
+.hero-kicker{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.hero-kicker::before{
+  content:'';
+  display:block;
+  width:24px;height:1px;
+  background:var(--blue);
+}
+
+.hero-title{
+  font-family:var(--display);
+  font-size:clamp(32px,6vw,58px);
+  font-weight:700;
+  line-height:1.08;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  margin-bottom:20px;
+}
+
+.hero-title em{
+  font-style:normal;
+  position:relative;
+  display:inline-block;
+}
+
+.hero-title em::after{
+  content:'';
+  position:absolute;
+  bottom:4px;left:0;right:0;
+  height:6px;
+  background:var(--blue);
+  opacity:.2;
+  border-radius:3px;
+}
+
+.hero-sub{
+  font-family:var(--display);
+  font-size:17px;
+  font-weight:400;
+  color:var(--dim);
+  max-width:520px;
+  line-height:1.6;
+  margin-bottom:40px;
+}
+
+.hero-meta{
+  display:flex;
+  gap:32px;
+  flex-wrap:wrap;
+}
+
+.meta-item{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.meta-num{
+  font-family:var(--display);
+  font-size:28px;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1;
+}
+
+.meta-label{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+
+/* ── Section ── */
+.section{
+  margin-bottom:72px;
+  padding-top:8px;
+}
+
+.section-header{
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:32px;
+}
+
+.section-num{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--dim);
+  padding-top:6px;
+  flex-shrink:0;
+  letter-spacing:.05em;
+}
+
+.section-head-content{}
+
+.section-tag{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:6px;
+}
+
+h2{
+  font-family:var(--display);
+  font-size:clamp(22px,3.5vw,30px);
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.2;
+  letter-spacing:-.01em;
+}
+
+.section-divider{
+  width:100%;
+  height:1px;
+  background:var(--rule);
+  margin-bottom:32px;
+}
+
+/* ── Body text ── */
+p{
+  font-size:15px;
+  line-height:1.85;
+  color:rgba(15,17,23,.78);
+  margin-bottom:16px;
+}
+
+p:last-child{margin-bottom:0;}
+
+strong{color:var(--ink);font-weight:700;}
+
+/* ── Callout box ── */
+.callout{
+  border-left:3px solid var(--blue);
+  background:var(--blue-t);
+  padding:16px 20px;
+  border-radius:0 8px 8px 0;
+  margin:24px 0;
+}
+
+.callout.orange{border-left-color:var(--orange);background:var(--orange-t);}
+.callout.green{border-left-color:var(--green);background:var(--green-t);}
+.callout.purple{border-left-color:var(--purple);background:var(--purple-t);}
+
+.callout-label{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:8px;
+  font-weight:500;
+}
+
+.callout.orange .callout-label{color:var(--orange);}
+.callout.green  .callout-label{color:var(--green);}
+.callout.purple .callout-label{color:var(--purple);}
+
+.callout p{margin-bottom:0;font-size:14px;}
+
+/* ── Metric cards ── */
+.metric-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--rule);
+  border:1px solid var(--rule);
+  border-radius:12px;
+  overflow:hidden;
+  margin:24px 0;
+}
+
+.metric-card{
+  background:var(--paper);
+  padding:24px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.metric-card:hover{background:var(--warm);}
+
+.metric-icon{font-size:22px;line-height:1;}
+
+.metric-label{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+
+.metric-title{
+  font-family:var(--display);
+  font-size:16px;
+  font-weight:700;
+  color:var(--ink);
+}
+
+.metric-desc{
+  font-size:13px;
+  line-height:1.65;
+  color:rgba(15,17,23,.65);
+}
+
+@media(max-width:560px){
+  .metric-cards{grid-template-columns:1fr;}
+}
+
+/* ── Metric funnel cards ── */
+.metric-funnel{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0;
+  margin:28px 0;
+  width:100%;
+}
+
+.mf-card{
+  width:100%;
+  border-radius:12px;
+  padding:20px 24px;
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  border:2px solid transparent;
+}
+
+.mf-blue{background:var(--blue-t);border-color:rgba(26,76,255,.2);}
+.mf-purple{background:var(--purple-t);border-color:rgba(107,63,160,.2);}
+.mf-green{background:var(--green-t);border-color:rgba(13,122,78,.2);}
+
+.mf-icon{font-size:26px;flex-shrink:0;line-height:1;margin-top:2px;}
+
+.mf-title{
+  font-family:var(--display);
+  font-size:17px;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:4px;
+}
+
+.mf-desc{
+  font-size:13.5px;
+  line-height:1.65;
+  color:rgba(15,17,23,.7);
+}
+
+.mf-arrow{
+  font-size:20px;
+  color:var(--rule);
+  line-height:1;
+  padding:6px 0;
+}
+
+/* ── Funnel (old, keep for fallback) ── */
+.funnel-wrap{
+  margin:28px 0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.funnel-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.funnel-bar{
+  height:48px;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  font-family:var(--display);
+  font-size:13px;
+  font-weight:600;
+  color:#fff;
+  gap:8px;
+  flex-shrink:0;
+}
+
+.funnel-bar.f1{background:var(--blue);width:100%;}
+.funnel-bar.f2{background:var(--purple);width:80%;}
+.funnel-bar.f3{background:var(--green);width:60%;}
+
+.funnel-note{
+  font-size:12px;
+  color:var(--dim);
+  line-height:1.5;
+  flex:1;
+}
+
+@media(max-width:480px){
+  .funnel-bar{font-size:11px;}
+  .funnel-note{display:none;}
+}
+
+/* ── Two-col ── */
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:24px 0;
+}
+
+@media(max-width:540px){.two-col{grid-template-columns:1fr;}}
+
+.col-card{
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:20px;
+  background:var(--paper);
+}
+
+.col-card-label{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.col-card-title{
+  font-family:var(--display);
+  font-size:16px;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:10px;
+}
+
+.col-card p{font-size:13px;line-height:1.7;}
+
+.tag-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:12px;
+}
+
+.tag{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.06em;
+  padding:4px 9px;
+  border-radius:4px;
+  font-weight:500;
+}
+
+.tag.blue{background:var(--blue-t);color:var(--blue);}
+.tag.orange{background:var(--orange-t);color:var(--orange);}
+.tag.green{background:var(--green-t);color:var(--green);}
+.tag.purple{background:var(--purple-t);color:var(--purple);}
+
+/* ── Message framework steps ── */
+.steps{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  margin:24px 0;
+  position:relative;
+}
+
+.steps::before{
+  content:'';
+  position:absolute;
+  left:19px;
+  top:20px;
+  bottom:20px;
+  width:1px;
+  background:var(--rule);
+}
+
+.step{
+  display:flex;
+  gap:20px;
+  padding:16px 0;
+}
+
+.step-num{
+  width:40px;height:40px;
+  border-radius:50%;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--display);
+  font-size:13px;
+  font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  z-index:1;
+}
+
+.step-num.blue{background:var(--blue);}
+.step-num.purple{background:var(--purple);}
+.step-num.green{background:var(--green);}
+
+.step-body{}
+
+.step-title{
+  font-family:var(--display);
+  font-size:15px;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:6px;
+  padding-top:8px;
+}
+
+.step-desc{font-size:14px;line-height:1.7;color:rgba(15,17,23,.72);}
+
+/* ── Phase timeline ── */
+.timeline{
+  margin:24px 0;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+
+.phase{
+  display:grid;
+  grid-template-columns:80px 1fr;
+  gap:20px;
+  padding:20px 0;
+  border-bottom:1px solid var(--rule);
+}
+
+.phase:last-child{border-bottom:none;}
+
+.phase-period{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--dim);
+  letter-spacing:.04em;
+  padding-top:3px;
+  text-align:right;
+  line-height:1.4;
+}
+
+.phase-body{}
+
+.phase-tag{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+  font-weight:500;
+}
+
+.phase-title{
+  font-family:var(--display);
+  font-size:16px;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:8px;
+}
+
+.phase-desc{font-size:14px;line-height:1.7;color:rgba(15,17,23,.72);}
+
+/* ── Budget bars ── */
+.budget-rows{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  margin:24px 0;
+}
+
+.budget-row{}
+
+.budget-label{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-bottom:6px;
+}
+
+.budget-name{
+  font-family:var(--display);
+  font-size:14px;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.budget-ratio{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--dim);
+}
+
+.budget-bar{
+  height:32px;
+  background:var(--warm);
+  border-radius:6px;
+  overflow:hidden;
+  display:flex;
+  border:1px solid var(--rule);
+}
+
+.bar-perf{
+  background:var(--orange);
+  display:flex;align-items:center;
+  padding-left:12px;
+  font-family:var(--display);
+  font-size:12px;
+  font-weight:600;
+  color:#fff;
+}
+
+.bar-brand{
+  background:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);
+  font-size:12px;
+  font-weight:600;
+  color:#fff;
+  flex:1;
+}
+
+/* ── Insight quote ── */
+.insight{
+  margin:32px 0;
+  padding:28px 28px 28px 0;
+  border-left:none;
+  position:relative;
+}
+
+.insight::before{
+  content:'"';
+  position:absolute;
+  top:-12px;left:0;
+  font-family:var(--display);
+  font-size:80px;
+  line-height:1;
+  color:var(--rule);
+  font-weight:700;
+}
+
+.insight-text{
+  font-family:var(--display);
+  font-size:clamp(16px,2.5vw,20px);
+  font-weight:500;
+  color:var(--ink);
+  line-height:1.5;
+  padding-left:36px;
+}
+
+.insight-source{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--dim);
+  padding-left:36px;
+  margin-top:12px;
+  letter-spacing:.05em;
+}
+
+/* ── List ── */
+ul.clean{
+  list-style:none;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin:16px 0;
+}
+
+ul.clean li{
+  display:flex;
+  gap:12px;
+  font-size:14px;
+  line-height:1.7;
+  color:rgba(15,17,23,.78);
+}
+
+ul.clean li::before{
+  content:'—';
+  color:var(--dim);
+  flex-shrink:0;
+  font-family:var(--mono);
+}
+
+/* ── Table of contents ── */
+.toc{
+  background:var(--warm);
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:24px 28px;
+  margin-bottom:60px;
+}
+
+.toc-title{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--dim);
+  margin-bottom:16px;
+}
+
+.toc-list{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.toc-list li a{
+  display:flex;
+  gap:16px;
+  align-items:baseline;
+  text-decoration:none;
+  color:var(--ink);
+  font-size:14px;
+  line-height:1.5;
+  padding:4px 0;
+  border-bottom:1px solid transparent;
+  transition:color .2s;
+}
+
+.toc-list li a:hover{color:var(--blue);}
+
+.toc-num{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--dim);
+  flex-shrink:0;
+  width:28px;
+}
+
+/* ── Footer ── */
+footer{
+  border-top:1px solid var(--rule);
+  padding:40px 0 0;
+  margin-top:80px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+footer p{font-size:12px;color:var(--dim);margin:0;}
+
+/* ── Back to top ── */
+#back-top{
+  position:fixed;
+  bottom:28px;right:24px;
+  width:40px;height:40px;
+  background:var(--ink);
+  color:var(--paper);
+  border:none;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+  display:none;
+  align-items:center;justify-content:center;
+  z-index:150;
+  transition:opacity .2s;
+}
+
+#back-top.show{display:flex;}
+#back-top:hover{opacity:.8;}
+
+/* ── Reduced motion ── */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav id="toc-nav">
+  <div class="nav-logo">品牌行銷</div>
+  <ul class="nav-chapters">
+    <li><a href="#s1">三大指標</a></li>
+    <li><a href="#s2">領先&amp;落後 指標</a></li>
+    <li><a href="#s3">訊息框架</a></li>
+    <li><a href="#s4">行銷活動規劃</a></li>
+    <li><a href="#s5">品牌圖書館</a></li>
+    <li><a href="#s6">品牌重塑/預算</a></li>
+    <li><a href="#s7">向上管理</a></li>
+    <li><a href="#s8">職涯建議</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-kicker">Brand Marketing Playbook</div>
+    <h1 class="hero-title">品牌行銷<br>從<em>抽象概念</em>到<em>商業轉換</em></h1>
+    <p class="hero-sub">以下圍繞在「品牌行銷」的行銷指標設定、訊息框架、跨部門溝通到向上管理的討論。</p>
+  
+  </section>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">目錄 Table of Contents</div>
+    <ol class="toc-list">
+      <li><a href="#s1"><span class="toc-num">01</span>品牌行銷的三大核心量化指標</a></li>
+      <li><a href="#s2"><span class="toc-num">02</span>策略連動：落後指標 vs. 領先指標</a></li>
+      <li><a href="#s3"><span class="toc-num">03</span>建置品牌訊息框架 Message Framework</a></li>
+      <li><a href="#s4"><span class="toc-num">04</span>溝通階段佈局 Communication Phase</a></li>
+      <li><a href="#s5"><span class="toc-num">05</span>內部對齊與品牌圖書館</a></li>
+      <li><a href="#s6"><span class="toc-num">06</span>品牌重塑與預算演進</a></li>
+      <li><a href="#s7"><span class="toc-num">07</span>行銷的向上管理</a></li>
+      <li><a href="#s8"><span class="toc-num">08</span>跨足品牌行銷，可以從「產品行銷 PMM」下手</a></li>
+    </ol>
+  </div>
+
+  <!-- ── S1: Three Metrics ── -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-head-content">
+        <div class="section-tag">The Three Metric Model</div>
+        <h2>品牌行銷的三大核心量化指標</h2>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+
+    <p>在缺乏品牌思維的企業（尤其是新創）中，行銷常淪為單一管道的操作，例如純粹下廣編或找網紅。為了不讓品牌行銷流於無法追蹤效益的空談，必須將其與商業目標連動，透過以下三個核心指標進行量化。</p>
+
+    <div class="callout orange">
+      <div class="callout-label">⚠ 痛點</div>
+      <p>品牌行銷若無法與商業轉換連動，就會淪為「高大上」的口號。<strong>指標化是讓品牌預算被認可的前提。</strong></p>
+    </div>
+
+    <div class="metric-funnel">
+      <div class="mf-card mf-blue">
+        <div class="mf-icon">📣</div>
+        <div class="mf-title">認知度 Awareness</div>
+        <div class="mf-desc">有多少受眾知道這個品牌？漏斗最頂層的基礎。</div>
+      </div>
+      <div class="mf-arrow">↓</div>
+      <div class="mf-card mf-purple">
+        <div class="mf-icon">🏅</div>
+        <div class="mf-title">權威性 Authority</div>
+        <div class="mf-desc">品牌是否出現在關鍵場景，並獲得第三方背書？</div>
+      </div>
+      <div class="mf-arrow">↓</div>
+      <div class="mf-card mf-green">
+        <div class="mf-icon">🎯</div>
+        <div class="mf-title">採用度 Adoption</div>
+        <div class="mf-desc">銜接品牌行銷與績效行銷（Performance Marketing）的橋樑。</div>
+      </div>
+    </div>
+
+    <div class="metric-cards">
+      <div class="metric-card">
+        <div class="metric-icon">📣</div>
+        <div class="metric-label">Top of Funnel</div>
+        <div class="metric-title">認知度 Awareness</div>
+        <div class="metric-desc">衡量市場上有多少受眾知道該品牌存在，是漏斗最頂層的基礎指標。</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🏅</div>
+        <div class="metric-label">Third-party Credibility</div>
+        <div class="metric-title">權威性 Authority</div>
+        <div class="metric-desc">品牌在關鍵場景出現的頻率、獲得第三方背書的質量，包含媒體報導量、專家合作次數，以及在 KOL 內容中被實際提及的比例與篇幅。</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🎯</div>
+        <div class="metric-label">Bridge to Conversion</div>
+        <div class="metric-title">採用度 Adoption</div>
+        <div class="metric-desc">連接品牌與績效行銷的橋樑。包括加入官方 LINE、填問卷換取誘因、試用 AI 新功能等中介轉換行為，而非最終訂單。</div>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <div class="callout-label">💡 延伸應用</div>
+      <p>權威性指標中，<strong>具象化的客戶案例（Case Study）</strong>是建立信任感最有效的工具之一，可同時服務 B2B 與 B2C 受眾。</p>
+    </div>
+  </section>
+
+  <!-- ── S2: Lagging vs Leading ── -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-head-content">
+        <div class="section-tag">Strategy & Metrics</div>
+        <h2>策略連動：落後指標 vs. 領先指標</h2>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+
+    <p>要向老闆證明品牌的價值，必須學會「<strong>從結果回推</strong>」的策略設計——先確立落後指標，再拆解出每日可控的領先指標。</p>
+
+    <div class="two-col">
+      <div class="col-card">
+        <div class="col-card-label" style="color:var(--orange);">Lagging Indicator</div>
+        <div class="col-card-title">落後指標</div>
+        <p>老闆與高層最在意的最終商業結果。通常是「一翻兩瞪眼」的數字，事後無法改變。</p>
+        <div class="tag-row">
+          <span class="tag orange">年度營收</span>
+          <span class="tag orange">新用戶數</span>
+          <span class="tag orange">採用率提升幅度</span>
+        </div>
+      </div>
+      <div class="col-card">
+        <div class="col-card-label" style="color:var(--green);">Leading Indicator</div>
+        <div class="col-card-title">領先指標</div>
+        <p>行銷團隊每天可以優化與控制的數據。即時可調整，是執行層的核心追蹤對象。</p>
+        <div class="tag-row">
+          <span class="tag green">活動註冊人數</span>
+          <span class="tag green">到場人數</span>
+          <span class="tag green">KOL 帶回轉換數</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-text">規劃任何品牌活動，絕不能只停留在領先指標。必須先從落後指標回推，才能避免為辦活動而辦活動。</div>
+      <div class="insight-source">— 品牌行銷實務原則</div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">🔢 實務拆解範例</div>
+      <p>假設年度目標是 <strong>1 萬個新用戶（落後指標）</strong>，行銷團隊必須拆解到各管道：</p>
+      <ul class="clean" style="margin-top:10px;">
+        <li>Webinar 活動 → 目標 500 個註冊</li>
+        <li>5 位 KOL 合作 → 目標 1,500 個轉換</li>
+        <li>SEO + 內容 → 目標 3,000 個自然流量</li>
+        <li>其他管道加總 → 補足剩餘缺口</li>
+      </ul>
+      <p style="margin-top:10px;">所有管道的<strong>領先指標加總必須等於落後指標</strong>，確保策略可追蹤、可問責。</p>
+    </div>
+  </section>
+
+  <!-- ── S3: Message Framework ── -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-head-content">
+        <div class="section-tag">Message Framework</div>
+        <h2>建置品牌訊息框架</h2>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="callout orange">
+      <div class="callout-label">⚠ 最常見錯誤</div>
+      <p>從「管道」出發（如：「我要在 IG 辦一個活動」）。正確順序是：<strong>確立目標 → 確立訊息 → 選擇戰術與管道。</strong></p>
+    </div>
+
+    <p>一個完整的訊息框架由三層構成，缺一不可：</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num blue">1</div>
+        <div class="step-body">
+          <div class="step-title">總體訊息 Overarching Message</div>
+          <div class="step-desc">品牌對外溝通的核心主張，所有內容產出的最終依據。<br><br>
+          範例：「以 AI 技術為驅動，我們正透過量身打造的個人化語言學習平台來革新學習體驗。」</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num purple">2</div>
+        <div class="step-body">
+          <div class="step-title">故事切角 Story Angle &amp; 故事元素 Story Component</div>
+          <div class="step-desc">將總體訊息拆解為三個可操作的切角，每個切角搭配具體元素：</div>
+          <div class="tag-row" style="margin-top:10px;">
+            <span class="tag purple">公司願景與發展</span>
+            <span class="tag purple">技術與團隊優勢</span>
+            <span class="tag purple">里程碑與未來計畫</span>
+          </div>
+          <ul class="clean" style="margin-top:12px;">
+            <li><strong>公司願景</strong>：強調 AI 驅動技術、亞太區 200 萬用戶、市佔前三。搭配：新聞稿、專訪</li>
+            <li><strong>技術優勢</strong>：AI 學習模式分析、全球化人才、學術合作。搭配：新聞稿、專欄投稿</li>
+            <li><strong>里程碑</strong>：企業語言課程、政府∕企業合作、國際市場拓展。搭配：媒體聚會、案例研究</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num green">3</div>
+        <div class="step-body">
+          <div class="step-title">戰術執行 Story Tactics</div>
+          <div class="step-desc">依切角選擇最適合的傳播形式，確保訊息與管道特性相符。</div>
+          <div class="tag-row" style="margin-top:10px;">
+            <span class="tag green">新聞稿</span>
+            <span class="tag green">專訪</span>
+            <span class="tag green">Byline 專欄投稿</span>
+            <span class="tag green">媒體聚會</span>
+            <span class="tag green">廣編稿</span>
+            <span class="tag green">案例研究</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S4: Communication Phase ── -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-head-content">
+        <div class="section-tag">Communication Planning</div>
+        <h2>「品牌行銷活動」各階段規劃與佈局</h2>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+
+    <p>操作大型活動或年度專案時，必須以時間軸切分為三個階段，讓所有管道的輸出都緊扣同一個主軸、層層遞進。</p>
+
+    <div class="timeline">
+      <div class="phase">
+        <div class="phase-period">2–3 月</div>
+        <div class="phase-body">
+          <div class="phase-tag" style="color:var(--blue);">Phase 1 ‧ 預熱期 Pre-event</div>
+          <div class="phase-title">種草，建立話題位置</div>
+          <div class="phase-desc">發布產業趨勢報告（如「2025 語言學習趨勢」），切入求職季需求、Z 世代工作模式、多語溝通重要性。此階段以<strong>新聞稿與專欄文章</strong>為主，目的是在目標受眾心中預埋話題，為後續核心活動鋪路。</div>
+          <div class="tag-row" style="margin-top:10px;">
+            <span class="tag blue">產業趨勢報告</span>
+            <span class="tag blue">新聞稿</span>
+            <span class="tag blue">專欄文章</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-period">4–5 月</div>
+        <div class="phase-body">
+          <div class="phase-tag" style="color:var(--purple);">Phase 2 ‧ 核心活動期 Event</div>
+          <div class="phase-title">集中火力，創造聲量高峰</div>
+          <div class="phase-desc">宣布推出新課程∕解決方案，公告與政府∕上市公司的合作，並提供「<strong>限量免費體驗名額</strong>」製造稀缺感。此階段集中投入媒體聚會、新聞稿、專訪與廣編稿，是全年聲量的制高點。</div>
+          <div class="tag-row" style="margin-top:10px;">
+            <span class="tag purple">新功能發布</span>
+            <span class="tag purple">媒體聚會</span>
+            <span class="tag purple">廣編稿</span>
+            <span class="tag purple">限量體驗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-period">6–7 月</div>
+        <div class="phase-body">
+          <div class="phase-tag" style="color:var(--green);">Phase 3 ‧ 長尾期 Post-event</div>
+          <div class="phase-title">延續熱度，深化信任</div>
+          <div class="phase-desc">以「AI 如何提升商業競爭力」為切角，發布內部數據報告（如用戶平均學習時間 30 分鐘，集中在通勤與午休時段）。主要透過<strong>專欄文章與案例分析</strong>延續聲量，將媒體熱度轉化為長期的品牌認知。</div>
+          <div class="tag-row" style="margin-top:10px;">
+            <span class="tag green">內部數據報告</span>
+            <span class="tag green">案例分析</span>
+            <span class="tag green">AI 競爭力專欄</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S5: Internal Alignment ── -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-head-content">
+        <div class="section-tag">Internal Alignment</div>
+        <h2>內部對齊與品牌圖書館</h2>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+
+    <p>品牌訊息在對外傳播之前，必須先完成內部對齊。企業內部各部門對品牌的期待常有衝突，品牌團隊的核心任務是整合這些分歧。</p>
+
+    <div class="two-col">
+      <div class="col-card">
+        <div class="col-card-label" style="color:var(--blue);">業務∕Sales</div>
+        <div class="col-card-title">B2B 訂單導向</div>
+        <p>想對台積電等企業客戶或政府單位溝通，重視能否帶來實際合約。</p>
+      </div>
+      <div class="col-card">
+        <div class="col-card-label" style="color:var(--purple);">產品∕Product</div>
+        <div class="col-card-title">B2C 功能導向</div>
+        <p>想對消費者溝通新功能，重視試用人數與功能採用率。</p>
+      </div>
+      <div class="col-card">
+        <div class="col-card-label" style="color:var(--green);">人資∕Talent</div>
+        <div class="col-card-title">雇主品牌導向</div>
+        <p>想對求職者與 HR 溝通公司文化，重視吸引優秀人才的效益。</p>
+      </div>
+      <div class="col-card" style="background:var(--warm);">
+        <div class="col-card-label" style="color:var(--orange);">品牌∕Brand</div>
+        <div class="col-card-title">整合者角色</div>
+        <p>年底透過 1-on-1 訪談釐清各方利益，轉化為<strong>統一訊息框架</strong>，以一個好聽的故事對外部市場溝通。</p>
+      </div>
+    </div>
+
+    <div class="callout purple">
+      <div class="callout-label">📚 品牌圖書館管理員 Brand Librarian</div>
+      <p>品牌負責人必須像「圖書館管理員」一樣，維護企業最新的品牌資訊庫，確保任何人對外發言時都不會偏離品牌調性：</p>
+      <ul class="clean" style="margin-top:10px;">
+        <li>統一的官方背景介紹（創立年份、主力市場在越南與印尼等）</li>
+        <li>統一的品牌口號（如 "Where talent meets opportunity"）</li>
+        <li>統一的對外 Q&amp;A 說詞（主力市場、是否公開年營收等）</li>
+        <li>官方照片庫，以及中秋節禮物的包裝與小卡文字，都必須符合品牌調性</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── S6: Rebranding & Budget ── -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-head-content">
+        <div class="section-tag">Rebranding & Budget</div>
+        <h2>品牌重塑與預算演進</h2>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+
+    <p>當品牌需要轉型（例如從單一工具轉型為綜合平台），Rebranding 是風險與機會並存的挑戰。</p>
+
+    <div class="callout orange">
+      <div class="callout-label">⚠ 最大風險</div>
+      <p>品牌更名往往導致 <strong>SEO 斷崖式下跌</strong>與內部反彈，必須在執行前做好充分準備與風險評估。</p>
+    </div>
+
+    <div class="steps" style="margin:24px 0;">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">內部工作坊</div>
+          <div class="step-desc">凝聚跨部門共識，確保所有利害關係人理解並認可轉型方向，降低內部反彈。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">委外市場調查</div>
+          <div class="step-desc">分別訪問 HR 與求職者，了解對品牌及競品的印象、功能優劣，找出<strong>真正的差異化優勢</strong>（如：不與大型人力銀行硬拚規模，主打「國際化人才平台」）。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">SEO 遷移規劃</div>
+          <div class="step-desc">在更名前完整規劃 301 轉址、舊網址保留期限與新舊品牌關鍵字策略，將流量損失降至最低。</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--display);font-size:17px;font-weight:700;margin:32px 0 16px;color:var(--ink);">行銷預算比例的演進</h3>
+
+    <div class="budget-rows">
+      <div class="budget-row">
+        <div class="budget-label">
+          <div class="budget-name">新創初期 — 求生存階段</div>
+          <div class="budget-ratio">績效 9 : 品牌 1</div>
+        </div>
+        <div class="budget-bar">
+          <div class="bar-perf" style="width:90%;">Performance 90%</div>
+          <div class="bar-brand" style="width:10%;font-size:10px;">10%</div>
+        </div>
+      </div>
+      <div class="budget-row">
+        <div class="budget-label">
+          <div class="budget-name">成長穩定期 — 降低廣告依賴</div>
+          <div class="budget-ratio">績效 8 : 品牌 2</div>
+        </div>
+        <div class="budget-bar">
+          <div class="bar-perf" style="width:80%;">Performance 80%</div>
+          <div class="bar-brand" style="width:20%;">Brand 20%</div>
+        </div>
+      </div>
+      <div class="budget-row">
+        <div class="budget-label">
+          <div class="budget-name">理想成熟值 — 實務上極難達到</div>
+          <div class="budget-ratio">績效 5 : 品牌 5</div>
+        </div>
+        <div class="budget-bar">
+          <div class="bar-perf" style="width:50%;">Performance 50%</div>
+          <div class="bar-brand" style="width:50%;">Brand 50%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S7: Upward Management ── -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div class="section-head-content">
+        <div class="section-tag">Upward Management</div>
+        <h2>行銷的向上管理</h2>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+
+    <p>品牌效益抽象、難以量化，老闆常會質疑「沒有直接帶來流量或訂單」。以下是在獲取預算支持前，最實用的策略。</p>
+
+    <div class="callout">
+      <div class="callout-label">🎯 向上管理技巧：口碑戰術</div>
+      <p>將少部分預算<strong>精準投放廣告給老闆及其周遭親友的社交圈</strong>。透過熟人口碑（例如朋友跟老闆說「我在電視上看到你們公司」），能有效讓老闆親身感受品牌聲量的存在，進而認可品牌預算的價值。</p>
+    </div>
+
+    <div class="insight">
+      <div class="insight-text">與其說服老闆「品牌有效」，不如讓老闆「親自感受到品牌的存在」。體驗遠比數據報告更有說服力。</div>
+      <div class="insight-source">— 向上管理實戰原則</div>
+    </div>
+
+    <div class="callout green" style="margin-top:32px;">
+      <div class="callout-label">✅ 核心總結</div>
+      <p>品牌行銷的本質是<strong>建立可追蹤的系統</strong>，讓每一分預算都能回溯至商業結果。從三大指標出發、用訊息框架統一溝通方向、以階段性時間軸執行、並用向上管理確保預算持續投入——這是品牌行銷的完整閉環。</p>
+    </div>
+  </section>
+
+  <!-- ── S8: Product Marketing PMM ── -->
+  <section class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <div class="section-head-content">
+        <div class="section-tag">Career Advice · Product Marketing</div>
+        <h2>跨足品牌行銷，可以從「產品行銷 PMM」下手</h2>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+
+    <p>對於想轉換到品牌行銷的人來說，<strong>產品行銷（Product Marketing Manager, PMM）</strong>是最好的練功場。它的規模雖小，但邏輯與品牌行銷完全一致。</p>
+
+    <div class="callout purple">
+      <div class="callout-label">💡 核心概念</div>
+      <p>產品行銷可以被視為經營一個「<strong>小品牌</strong>」。推廣單一產品不能只看最終轉換，也必須顧及漏斗上層的認知度，並尋找第三方背書。</p>
+    </div>
+
+    <div class="two-col">
+      <div class="col-card">
+        <div class="col-card-label" style="color:var(--blue);">產品行銷思維</div>
+        <div class="col-card-title">以「小品牌」經營產品</div>
+        <ul class="clean">
+          <li>建立產品專屬認知度</li>
+          <li>尋找第三方背書（親子部落客、網紅等）</li>
+          <li>策劃異業合作（如與旅遊業合作）</li>
+          <li>追蹤漏斗各層指標，而非只看最終轉換</li>
+        </ul>
+      </div>
+      <div class="col-card" style="background:var(--warm);">
+        <div class="col-card-label" style="color:var(--orange);">放大邏輯</div>
+        <div class="col-card-title">從產品 → 企業品牌</div>
+        <p>訓練好產品行銷的漏斗思維後，這套邏輯可以直接<strong>無縫放大到整個企業的品牌行銷層面</strong>，差別只在規模與預算。</p>
+        <div class="tag-row" style="margin-top:10px;">
+          <span class="tag orange">產品認知度</span>
+          <span class="tag orange">→ 品牌認知度</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:24px;">
+      <div class="callout-label">🚀 職涯建議</div>
+      <p>想跨入品牌行銷領域，不必等到有完整的品牌預算才開始學。從<strong>任何一個產品的行銷推廣</strong>開始，刻意練習「認知度 → 權威性 → 採用度」的思維框架，就是在為品牌行銷打底。</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>品牌行銷 — 從抽象概念到商業轉換</p>
+    <p>Brand Marketing Playbook · Strategic Frameworks & Integration</p>
+  </footer>
+
+</main>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回頂部">↑</button>
+
+<script>
+// Progress bar
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = pct + '%';
+
+  // Back to top
+  const btn = document.getElementById('back-top');
+  if (scrollTop > 400) btn.classList.add('show');
+  else btn.classList.remove('show');
+});
+
+// Active nav highlight
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-chapters a');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
