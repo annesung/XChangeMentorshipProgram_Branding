@@ -96,8 +96,46 @@ body{
   border-bottom-color:var(--blue);
 }
 
-@media(max-width:700px){
-  .nav-chapters{display:none;}
+/* ── Hamburger ── */
+#nav-toggle{
+  display:none;
+  background:none;
+  border:1px solid var(--rule);
+  border-radius:6px;
+  padding:6px 10px;
+  font-size:16px;
+  cursor:pointer;
+  color:var(--ink);
+  line-height:1;
+}
+
+@media(max-width:760px){
+  .nav-chapters{
+    display:none;
+    position:fixed;
+    top:52px;left:0;right:0;
+    background:rgba(245,244,240,.97);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+    flex-direction:column;
+    padding:8px 0 12px;
+    z-index:99;
+  }
+  .nav-chapters.open{display:flex;}
+  .nav-chapters li a{
+    height:44px;
+    line-height:44px;
+    padding:0 24px;
+    border-bottom:none;
+    border-left:3px solid transparent;
+  }
+  .nav-chapters li a:hover,
+  .nav-chapters li a.active{
+    border-left-color:var(--blue);
+    border-bottom:none;
+    background:var(--warm);
+  }
+  #nav-toggle{display:block;}
 }
 
 /* ── Layout ── */
@@ -802,7 +840,7 @@ footer p{font-size:12px;color:var(--dim);margin:0;}
 
 <nav id="toc-nav">
   <div class="nav-logo">品牌行銷</div>
-  <ul class="nav-chapters">
+  <ul class="nav-chapters" id="nav-chapters">
     <li><a href="#s1">三大指標</a></li>
     <li><a href="#s2">領先&amp;落後 指標</a></li>
     <li><a href="#s3">訊息框架</a></li>
@@ -812,6 +850,7 @@ footer p{font-size:12px;color:var(--dim);margin:0;}
     <li><a href="#s7">向上管理</a></li>
     <li><a href="#s8">職涯建議</a></li>
   </ul>
+  <button id="nav-toggle" onclick="document.getElementById('nav-chapters').classList.toggle('open')">☰</button>
 </nav>
 
 <main>
@@ -1319,6 +1358,13 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '-40% 0px -55% 0px' });
 
 sections.forEach(s => observer.observe(s));
+
+// Close mobile menu on link click
+document.querySelectorAll('.nav-chapters a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('nav-chapters').classList.remove('open');
+  });
+});
 </script>
 </body>
 </html>
